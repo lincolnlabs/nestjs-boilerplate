@@ -35,6 +35,7 @@ NestJS REST API boilerplate for typical project
 - [x] Docker.
 - [x] CI (Github Actions).
 - [x] Logger ([Winston](https://www.npmjs.com/package/nest-winston)).
+- [x] GraphQL.
 
 ## Quick run
 

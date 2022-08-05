@@ -27,6 +27,12 @@ import { MailConfigService } from './mail/mail-config.service';
 import { ForgotModule } from './forgot/forgot.module';
 import { MailModule } from './mail/mail.module';
 import { HomeModule } from './home/home.module';
+import { WinstonModule } from 'nest-winston';
+import { transports } from 'winston';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { AppResolver } from './app.resolver';
 
 @Module({
   imports: [
@@ -44,6 +50,28 @@ import { HomeModule } from './home/home.module';
         appleConfig,
       ],
       envFilePath: ['.env'],
+    }),
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      useFactory: (configService: ConfigService) => {
+        return {
+          sortSchema: configService.get('graphql.sortSchema'),
+          autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+          installSubscriptionHandlers: true,
+          buildSchemaOptions: {
+            numberScalarMode: 'integer',
+          },
+          debug: configService.get('graphql.debug'),
+          playground: configService.get('graphql.playgroundEnabled'),
+          introspection: configService.get('graphql.introspection'),
+          context: ({ req, res }) => ({ req, res }),
+        };
+      },
+      inject: [ConfigService],
+    }),
+    WinstonModule.forRoot({
+      level: 'info',
+      transports: [new transports.Console()],
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
@@ -78,5 +106,6 @@ import { HomeModule } from './home/home.module';
     MailModule,
     HomeModule,
   ],
+  providers: [AppResolver],
 })
 export class AppModule {}

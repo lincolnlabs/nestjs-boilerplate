@@ -5,9 +5,18 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { SerializerInterceptor } from './utils/serializer.interceptor';
 import validationOptions from './utils/validation-options';
+import { WinstonModule } from 'nest-winston';
+import { transports } from 'winston';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    logger: WinstonModule.createLogger({
+      // this is the transports of the nest app,
+      // you can store the logs separately from the development ones
+      transports: [new transports.Console()],
+    }),
+  });
   const configService = app.get(ConfigService);
 
   app.enableShutdownHooks();

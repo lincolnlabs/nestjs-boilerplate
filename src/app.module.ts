@@ -27,6 +27,8 @@ import { MailConfigService } from './mail/mail-config.service';
 import { ForgotModule } from './forgot/forgot.module';
 import { MailModule } from './mail/mail.module';
 import { HomeModule } from './home/home.module';
+import { WinstonModule } from 'nest-winston';
+import { transports } from 'winston';
 
 @Module({
   imports: [
@@ -44,6 +46,10 @@ import { HomeModule } from './home/home.module';
         appleConfig,
       ],
       envFilePath: ['.env'],
+    }),
+    WinstonModule.forRoot({
+      level: 'info',
+      transports: [new transports.Console()],
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,

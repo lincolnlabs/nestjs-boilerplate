@@ -6,13 +6,18 @@ NestJS REST API boilerplate for typical project
 
 ## Table of Contents
 
-- [Features](#features)
-- [Quick run](#quick-run)
-- [Comfortable development](#comfortable-development)
-- [Links](#links)
-- [Automatic update of dependencies](#automatic-update-of-dependencies)
-- [Database utils](#database-utils)
-- [Tests](#tests)
+- [NestJS REST API boilerplate 🇺🇦](#nestjs-rest-api-boilerplate-)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Quick run](#quick-run)
+  - [Comfortable development](#comfortable-development)
+  - [Links](#links)
+  - [Automatic update of dependencies](#automatic-update-of-dependencies)
+  - [Database utils](#database-utils)
+  - [Tests](#tests)
+  - [Tests in Docker](#tests-in-docker)
+  - [Test benchmarking](#test-benchmarking)
 
 ## Features
 
@@ -29,6 +34,7 @@ NestJS REST API boilerplate for typical project
 - [x] E2E and units tests.
 - [x] Docker.
 - [x] CI (Github Actions).
+- [x] Logger ([Winston](https://www.npmjs.com/package/nest-winston)).
 
 ## Quick run
 
